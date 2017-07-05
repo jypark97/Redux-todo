@@ -9,6 +9,11 @@ const reducer = (state = [], action) => {
       }
       newState.push(newTodo);
       return newState;
+    case "TOGGLE_TODO":
+      const newTodo1 = Object.assign({}, state[action.id], {completed: !state[action.id].completed})
+      const newState1 = [...state.slice(0, action.id), newTodo1, ...state.slice(action.id + 1)];
+      return newState1;
+
     default:
       return state;
   }

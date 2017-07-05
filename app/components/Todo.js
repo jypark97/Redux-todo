@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Todo = ({task, completed, handleOnClick}) => {
+const Todo = ({task, completed, toggleTodo}) => {
   return (
     <li>
-        <span onClick={handleOnClick}>
+        <span className="waves-effect waves-light btn" onClick={toggleTodo}>
           {completed ? <strike> {task} </strike> : task}
         </span>
     </li>
