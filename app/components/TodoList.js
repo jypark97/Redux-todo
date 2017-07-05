@@ -2,7 +2,7 @@ import React from 'react';
 import Todo from './Todo';
 
 
-const TodoList = ({todos, handleToggleTodo}) => {
+const TodoList = ({todos, toggleTodo}) => {
 
     return (
       <ul>
@@ -13,7 +13,7 @@ const TodoList = ({todos, handleToggleTodo}) => {
               task={todo.task}
               completed={todo.completed}
               //use matching ids instead of index
-              toggleTodo={() => handleToggleTodo(todo.id)}
+              toggleTodo={() => toggleTodo(todo.id)}
             />
           ))
         }
