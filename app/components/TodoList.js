@@ -1,23 +1,26 @@
 import React from 'react';
 import Todo from './Todo';
 
-class TodoList extends React.Component {
-  render() {
-    return (
+const TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
+  return (
+    <div>
+      <button>extra credit...</button>
       <ul>
         {
-          this.props.todos.map((todo, index) => (
+          todos.map((todo) => (
             <Todo
               key={todo.id}
               task={todo.task}
               completed={todo.completed}
-              toggleTodo={() => this.props.toggleTodo(index)}
+              // Now we will use matching by id's instead of index
+              handleOnClick={() => handleToggleTodo(todo.id)}
+              handleOnDoubleClick={() => handleRemoveTodo(todo.id)}
             />
           ))
         }
       </ul>
-    )
-  }
+    </div>
+  );
 }
 
 export default TodoList;
