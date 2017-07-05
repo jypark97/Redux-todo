@@ -1,55 +1,75 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-
+// import connect to connect TodoApp to the
+// resources it needs from redux store (which
+// is available because the app is wrapped
+// by <Provider> in app.js
+import { connect } from 'react-redux';
+// import the action creator for dispatch usage
+import { addTodo } from '../actions/index';
+import { toggleTodo } from '../actions/index';
+import { removeTodo } from '../actions/index';
+import { showAll } from '../actions/index';
+import { showCompleted } from '../actions/index';
+import { showUncompleted } from '../actions/index';
 
 let id = 0;
 
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { todos: [] };
-  }
-
-  toggleTodo(index) {
-    const newTodo = Object.assign(
-      {},
-      this.state.todos[index],
-      { completed: !this.state.todos[index].completed }
-    );
-    const newTodos = [ 
-      ...this.state.todos.slice(0, index),
-      newTodo,
-      ...this.state.todos.slice(index + 1)  
-    ];
-    this.setState({ todos: newTodos });
-  }
-
-  addTodo(task) {
-    const newTodo = { 
-      id: id++,
-      task: task,
-      completed: false 
-    };
-    const newTodos = [ ...this.state.todos ]
-    newTodos.push(newTodo);
-    this.setState({ todos: newTodos });
-  }
-
-  render() {
-    return (
+// have to change to let from const because overwriting below
+// with connected TodoApp
+let TodoApp =({ visibilityFilter, todos, addTodoClick, toggleTodo, removeTodo, showAll, showCompleted, showUncompleted }) => {
+  return (
       <div>
         <InputLine
-          addTodo={(task) => this.addTodo(task)}
+            addTodo={(task) => addTodoClick(id++, task)}
         />
         <TodoList
-          todos={this.state.todos}
-          toggleTodo={(index) => this.toggleTodo(index)}
-          removeTodo={(index) => this.removeTodo(index)}
+            visibilityFilter={visibilityFilter}
+            todos={todos}
+            toggleTodo={(id) => toggleTodo(id)}
+            removeTodo={(id) => removeTodo(id)}
         />
+        <button type="button" onClick={() => showAll()}>Show all</button>
+        <button type="button" onClick={() => showCompleted()}>Show Completed</button>
+        <button type="button" onClick={() => showUncompleted()}>Show Uncompleted</button>
       </div>
-    );
+  );
+}
+
+const mapStateToProps = state => {
+  return {
+    todos: state.todos,
+    visibilityFilter: state.visibilityFilter
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addTodoClick: (id, task) => {
+      dispatch(addTodo(id, task))
+    },
+    toggleTodo: (id) => {
+      dispatch(toggleTodo(id))
+    },
+    removeTodo: (id) => {
+      dispatch(removeTodo(id))
+    },
+    showAll: () => {
+      dispatch(showAll())
+    },
+    showCompleted: () => {
+      dispatch(showCompleted())
+    },
+    showUncompleted: () => {
+      dispatch(showUncompleted())
+    }
+  }
+}
+
+TodoApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp);
 
 export default TodoApp;
