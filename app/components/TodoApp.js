@@ -1,13 +1,15 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
+import {ButtonGroup, Button, MenuItem, DropdownButton } from 'react-bootstrap';
+
 import { addTodo, toggleTodo, removeTodo, filterTodo } from '../actions/index.js';
 import { connect } from 'react-redux';
 
 let id = 0;
 
 // class TodoApp extends React.Component {
-let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick, filterTodoClick}) => {
+let TodoApp = ({todos,currentFilter, addTodoClick, toggleTodoClick, removeTodoClick, filterTodoClick}) => {
 
     return (
       <div className="tododiv">
@@ -15,13 +17,28 @@ let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick, filterTod
         <InputLine
           addTodo={(task) => addTodoClick(id++, task)}
         />
-        <button className="btn" onClick={() => filterTodoClick("all")}>Show all</button>
-        <button className="btn" onClick={() => filterTodoClick("incomplete")}>Filter by Incomplete</button>
-        <button className="btn" onClick={() => filterTodoClick("complete")}>Filter by Completed</button>
+
+        <ButtonGroup style={{alignSelf: "flex-end", paddingRight: "5px"}}>
+
+          <DropdownButton title={"Filter by: "+currentFilter} id="bg-nested-dropdown">
+            <MenuItem eventKey="1" onClick={() =>
+              {
+                console.log(currentFilter);
+
+                return filterTodoClick("Complete");
+              }
+            }>
+            Complete</MenuItem>
+            <MenuItem eventKey="2" onClick={() => filterTodoClick("Incomplete")}>Incomplete</MenuItem>
+            <MenuItem eventKey="3" onClick={() => filterTodoClick("All")}>All</MenuItem>
+          </DropdownButton>
+        </ButtonGroup>
+
+        
         <TodoList
           todos={todos}
 
-          filterTodo = {(filterby) => filterTodoClick(filterby)}
+
           toggleTodo={(id) => toggleTodoClick(id)}
           removeTodo={(id) => removeTodoClick(id)}
         />
@@ -32,7 +49,8 @@ let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick, filterTod
 
 const mapStateToProps = (state) => {
   return {
-    todos: state
+    todos: state,
+    currentFilter: "All"
   }
 }
 
@@ -49,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     filterTodoClick: (filterby) => {
       dispatch(filterTodo(filterby))
-    }
+    },
   }
 }
 

@@ -38,14 +38,13 @@ const reducer = (state = [], action) => {
       case 'FILTER_TODO':
         let filteredState = [ ...state ];
         filteredState.forEach(function(todo) {
-          if(action.filterby == "complete"){
+          if(action.filterby == "Complete"){
             if(todo.completed){
               todo.display = true;
             }else{
               todo.display= false;
             }
-
-          }else if(action.filterby == "incomplete"){
+          }else if(action.filterby == "Incomplete"){
             if(todo.completed){
               todo.display = false;
             }else{
