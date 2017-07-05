@@ -21,6 +21,19 @@ const reducer = (state = [], action) => {
           }
         })
         return toggleState;
+      case 'REMOVE_TODO':
+        const removedState = [ ...state ];
+        let i = -1;
+        removedState.forEach(function(todo, index) {
+          // console.log("todo",todo);
+          if(todo.id == action.id){
+            i=index;
+          }
+        })
+        if(i!==-1){
+          removedState.splice(i,1);
+        }
+        return removedState;
        default:
            return state;
    }

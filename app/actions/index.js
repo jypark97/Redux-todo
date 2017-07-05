@@ -18,4 +18,12 @@ const toggleTodo = (id) => {
   }
 }
 
-export { addTodo, toggleTodo };
+const removeTodo = (id) => {
+  return {
+    type: 'REMOVE_TODO',
+    id: id,
+    completed: true
+  }
+}
+
+export { addTodo, toggleTodo, removeTodo };

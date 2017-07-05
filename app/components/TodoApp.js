@@ -1,13 +1,13 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-import { addTodo, toggleTodo } from '../actions/index.js';
+import { addTodo, toggleTodo, removeTodo } from '../actions/index.js';
 import { connect } from 'react-redux';
 
 let id = 0;
 
 // class TodoApp extends React.Component {
-let TodoApp = ({todos, addTodoClick, toggleTodoClick}) => {
+let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick}) => {
 
     return (
       <div>
@@ -18,7 +18,7 @@ let TodoApp = ({todos, addTodoClick, toggleTodoClick}) => {
         <TodoList
           todos={todos}
           toggleTodo={(id) => toggleTodoClick(id)}
-          // removeTodo={(index) => this.removeTodo(index)}
+          removeTodo={(id) => removeTodoClick(id)}
         />
       </div>
     );
@@ -38,6 +38,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     toggleTodoClick: (id) => {
       dispatch(toggleTodo(id))
+    },
+    removeTodoClick: (id) => {
+      dispatch(removeTodo(id))
     }
   }
 }
