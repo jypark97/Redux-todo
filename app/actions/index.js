@@ -8,3 +8,24 @@ export function addTodo(id,task) {
   completed: false
  };
 }
+
+export function toggleTodo(id){
+  return {
+    type: 'TOGGLE',
+    id
+  }
+}
+
+
+export function removeTodo(id){
+  return {
+    type: 'Remove',
+    id
+  }
+}
+
+export function toggleFilter(id){
+  return {
+    type: 'TOGGLE_FILTER'
+  }
+}
