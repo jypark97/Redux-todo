@@ -1,15 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-class Todo extends React.Component {
-  render() {
-    return (
-      <li>
-        <span onClick={() => this.props.toggleTodo()}>
-          {this.props.completed ? <strike> {this.props.task}</strike> : this.props.task}
-        </span>
-      </li>
-    );
-  }
+const Todo = ({task, completed, toggleTodo, removeTodo}) => {
+  return (
+    <li>
+      <span onClick={toggleTodo} onDoubleClick={removeTodo}>
+        {completed ? <strike> {task} </strike> : task}
+      </span>
+    </li>
+  );
 }
 
 export default Todo;

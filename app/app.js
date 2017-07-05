@@ -2,4 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TodoApp from './components/TodoApp';
 
-ReactDOM.render(<TodoApp />, document.getElementById('root'));
+import reducer from './reducers/index';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux'
+
+let store = createStore(reducer);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <TodoApp toggleTodoClick/>
+  </Provider>,
+  document.getElementById('root')
+);

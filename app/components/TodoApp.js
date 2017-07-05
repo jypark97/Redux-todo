@@ -1,55 +1,48 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-
-
+import { connect } from 'react-redux';
+import { addTodo } from './actions/index';
+import { crossTodo } from './actions/index';
+import { removeTodo } from './actions/index';
+import {bindActionCreators} from 'redux';
 let id = 0;
 
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { todos: [] };
-  }
-
-  toggleTodo(index) {
-    const newTodo = Object.assign(
-      {},
-      this.state.todos[index],
-      { completed: !this.state.todos[index].completed }
-    );
-    const newTodos = [ 
-      ...this.state.todos.slice(0, index),
-      newTodo,
-      ...this.state.todos.slice(index + 1)  
-    ];
-    this.setState({ todos: newTodos });
-  }
-
-  addTodo(task) {
-    const newTodo = { 
-      id: id++,
-      task: task,
-      completed: false 
-    };
-    const newTodos = [ ...this.state.todos ]
-    newTodos.push(newTodo);
-    this.setState({ todos: newTodos });
-  }
-
-  render() {
+let TodoApp =({ todos, addTodoClick, toggleTodoClick, handleRemove }) => {
+  console.log('todoapp', todos)
     return (
-      <div>
+        <div>
+        {/* leave this alone for now */}
         <InputLine
-          addTodo={(task) => this.addTodo(task)}
+            addTodo={(text) => addTodoClick(id++, text)}
         />
         <TodoList
-          todos={this.state.todos}
-          toggleTodo={(index) => this.toggleTodo(index)}
-          removeTodo={(index) => this.removeTodo(index)}
+            todos={todos}
+            handleToggleTodo={(id) => toggleTodoClick(id)}
+            handleRemove={(id) => handleRemove(id)}
         />
-      </div>
+        </div>
     );
+}
+
+function mapStateToProps(state){
+  return{
+    todos: state
   }
 }
 
-export default TodoApp;
+function mapDispatchToProps(dispatch){
+  return {
+    addTodoClick: (id, task) =>{
+      dispatch(addTodo(id, task)) //pass value back to reducers
+    },
+    toggleTodoClick:(id) =>{
+      dispatch(crossTodo(id))
+    },
+    handleRemove:(id) =>{
+      dispatch(removeTodo(id))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
