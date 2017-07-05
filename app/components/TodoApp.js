@@ -10,7 +10,8 @@ let id = 0;
 let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick}) => {
 
     return (
-      <div>
+      <div className="tododiv">
+        <div className="lines"></div>
         <InputLine
           addTodo={(task) => addTodoClick(id++, task)}
         />

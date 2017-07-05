@@ -18,7 +18,7 @@ class InputLine extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="form-group">
         <input
           type="text"
           placeholder="task"

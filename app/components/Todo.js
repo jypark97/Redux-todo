@@ -5,7 +5,10 @@ const Todo = ({task, completed, toggleTodo, removeTodo}) => {
 
     return (
       <li>
-        <span onClick={toggleTodo} onDoubleClick={removeTodo}>
+        <button className="btn removebtn" onClick={removeTodo}>
+          <span className="glyphicon glyphicon-remove"></span>
+        </button>
+        <span className="todotext" onClick={toggleTodo}>
           {completed ? <strike> {task}</strike> : task}
         </span>
       </li>
