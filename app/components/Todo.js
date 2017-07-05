@@ -1,8 +1,8 @@
 import React from 'react';
 
 // class Todo extends React.Component {
-const Todo = ({task, completed, toggleTodo, removeTodo}) => {
-
+const Todo = ({task, display, completed, toggleTodo, removeTodo}) => {
+  if(display){
     return (
       <li>
         <button className="btn removebtn" onClick={removeTodo}>
@@ -13,6 +13,9 @@ const Todo = ({task, completed, toggleTodo, removeTodo}) => {
         </span>
       </li>
     );
+  }else{
+    return (null);
+  }
 
 }
 

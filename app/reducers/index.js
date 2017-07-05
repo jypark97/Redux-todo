@@ -8,7 +8,8 @@ const reducer = (state = [], action) => {
            const newTodo = {
                id: action.id,
                task: action.task,
-               completed: action.completed
+               completed: action.completed,
+               display: true
            };
            newState.push(newTodo);
            return newState;
@@ -34,6 +35,28 @@ const reducer = (state = [], action) => {
           removedState.splice(i,1);
         }
         return removedState;
+      case 'FILTER_TODO':
+        let filteredState = [ ...state ];
+        filteredState.forEach(function(todo) {
+          if(action.filterby == "complete"){
+            if(todo.completed){
+              todo.display = true;
+            }else{
+              todo.display= false;
+            }
+
+          }else if(action.filterby == "incomplete"){
+            if(todo.completed){
+              todo.display = false;
+            }else{
+              todo.display= true;
+            }
+          }else{
+            todo.display = true;
+          }
+      })
+      return filteredState;
+
        default:
            return state;
    }

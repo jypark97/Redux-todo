@@ -6,7 +6,8 @@ const addTodo = (id, task) => {
     type: 'ADD_TODO',
     id: id,
     task: task,
-    completed: false
+    completed: false,
+    display: true
   }
 }
 
@@ -26,4 +27,11 @@ const removeTodo = (id) => {
   }
 }
 
-export { addTodo, toggleTodo, removeTodo };
+const filterTodo = (filterby) => {
+  return {
+    type: 'FILTER_TODO',
+    filterby: filterby
+  }
+}
+
+export { addTodo, toggleTodo, removeTodo, filterTodo };

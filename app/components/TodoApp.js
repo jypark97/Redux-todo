@@ -1,13 +1,13 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-import { addTodo, toggleTodo, removeTodo } from '../actions/index.js';
+import { addTodo, toggleTodo, removeTodo, filterTodo } from '../actions/index.js';
 import { connect } from 'react-redux';
 
 let id = 0;
 
 // class TodoApp extends React.Component {
-let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick}) => {
+let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick, filterTodoClick}) => {
 
     return (
       <div className="tododiv">
@@ -15,9 +15,13 @@ let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeTodoClick}) => {
         <InputLine
           addTodo={(task) => addTodoClick(id++, task)}
         />
-
+        <button className="btn" onClick={() => filterTodoClick("all")}>Show all</button>
+        <button className="btn" onClick={() => filterTodoClick("incomplete")}>Filter by Incomplete</button>
+        <button className="btn" onClick={() => filterTodoClick("complete")}>Filter by Completed</button>
         <TodoList
           todos={todos}
+
+          filterTodo = {(filterby) => filterTodoClick(filterby)}
           toggleTodo={(id) => toggleTodoClick(id)}
           removeTodo={(id) => removeTodoClick(id)}
         />
@@ -42,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeTodoClick: (id) => {
       dispatch(removeTodo(id))
+    },
+    filterTodoClick: (filterby) => {
+      dispatch(filterTodo(filterby))
     }
   }
 }
