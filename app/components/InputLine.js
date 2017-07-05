@@ -3,7 +3,6 @@ import React from 'react';
 class InputLine extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { task: '' };
   }
 
