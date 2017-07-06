@@ -16,6 +16,8 @@ class InputLine extends React.Component {
     this.setState({ task: '' });
   }
 
+
+
   render() {
     return (
       <div>
@@ -26,6 +28,10 @@ class InputLine extends React.Component {
           value={this.state.task}
         />
         <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <div>
+        {/* <button onClick={() => this.handleCompleted()}>All Completed</button>
+        <button onClick={() => this.handleUncompleted()}>All Uncompleted</button> */}
+        </div>
       </div>
     )
   }

@@ -5,8 +5,7 @@ const TodoList =({todos, handleToggleTodo,removeTodo}) => {
 
     return (
       <ul>
-        {
-        todos.map((todo) => (
+        {todos.map((todo) => (
             <Todo
               key={todo.id}
               task={todo.task}

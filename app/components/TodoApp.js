@@ -9,23 +9,52 @@ import { removeTodo } from '../actions/index2';
 
 let id = 0;
 
-let TodoApp = ({todos, addTodoClick, toggleTodoClick, doubleClick }) => {
+function filterCom (todos) {
+  return todos.filter((item) => {
+    return item.completed === true;
+  })
+}
+function filterUn (todos) {
+  return todos.filter((item) => {
+    return item.completed !== true;
+  })
+}
+
+let TodoApp = ({addTodoClick, toggleTodoClick, todos, doubleClick, filter, filterCompleted,filterUncompleted}) => {
+  let list = todos.slice();
+  if(filter === true) {
+    // console.log(1);
+    list = filterCom(todos);
+  }
+  if(filter === false) { /// question
+    // console.log(2);
+    list = filterUn(todos);
+  }
+  // console.log(list);
     return (
       <div>
         <InputLine
-          addTodo={(text) => addTodoClick(id++, text)}
+          addTodo={(task) => addTodoClick(id++, task)}
         />
+
+        <div>
+          <button onClick={filterCompleted}>All Completed</button>
+          <button onClick={filterUncompleted}>All Uncompleted</button>
+        </div>
+
         <TodoList
-          todos={todos}
-            handleToggleTodo={(id) => toggleTodoClick(id)}
-            removeTodo={(id) => doubleClick(id)}
+          todos={list}
+          handleToggleTodo={(id) => toggleTodoClick(id)}
+          removeTodo={(id) => doubleClick(id)}
         />
       </div>
     );
 }
+
 const mapStateToProps = state => {
   return {
-    todos: state
+    todos: state.todos,
+    filter: state.filter
   }
 }
 
@@ -40,6 +69,12 @@ const mapDispatchToProps = dispatch => {
     doubleClick: (id) => {
       dispatch (removeTodo(id))
     },
+    filterCompleted: () => {
+      dispatch({type: 'COMPLETED'})
+    },
+    filterUncompleted: () => {
+      dispatch({type: 'UNCOMPLETED'})
+    }
   }
 }
 
