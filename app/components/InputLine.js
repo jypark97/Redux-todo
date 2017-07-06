@@ -15,6 +15,9 @@ class InputLine extends React.Component {
     this.props.addTodo(this.state.task);
     this.setState({ task: '' });
   }
+  handleFilter(){
+    this.props.handleFilter()
+  }
 
   render() {
     return (
@@ -26,6 +29,7 @@ class InputLine extends React.Component {
           value={this.state.task}
         />
         <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <button onClick={() => this.handleFilter()}>Filter </button>
       </div>
     )
   }
