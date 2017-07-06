@@ -1,23 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const FilterButtons = ({showAll, showCompleted, showUncompleted}) => {
-  render() {
-      return (
-        <div>
-          <button onClick={showAll}>
-            Show All
-          </button>
-          <button onClick={showCompleted}>
-            Show Completed
-          </button>
-          <button onClick={showUncompleted}>
-            Show Uncompleted
-          </button>
-        </div>
-      )
-    }
+const FilterButtons = ({showAll, showComplete, showUncomplete}) => {
+    return (
+      <div>
+        <button onClick={showAll}>
+          Show All
+        </button>
+        <button onClick={showComplete}>
+          Show Completed
+        </button>
+        <button onClick={showUncomplete}>
+          Show Uncompleted
+        </button>
+      </div>
+    );
 }
-
 
 export default FilterButtons;

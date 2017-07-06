@@ -1,35 +1,31 @@
 const initialState = {
-  allTodos: [],
-  displayedTodos: []
+  todos: [],
+  filterFunction: (el) => el
 };
 
-const reducer = (state = initialState, { type, id, task, completed, filterText }) => {
-  const newAllTodos = [...state.allTodos];
-  const newDisplayedTodos = [...state.allTodos];
-
+const reducer = (state = initialState, { type, id, task, completed }) => {
+  let newTodos = [...state.todos];
+  let newFilterFunction = state.filterFunction.bind({});
   switch (type) {
     case "ADD_TODO":
-      newAllTodos.push({id, task, completed});
-      return {allTodos: newAllTodos};
+      newTodos.push({id, task, completed});
+      return {todos: newTodos, filterFunction: newFilterFunction};
     case "TOGGLE_TODO":
-      const i = newAllTodos.findIndex(el => el.id === id);
-      newAllTodos[i].completed = !newAllTodos[i].completed;
-      return {allTodos: newAllTodos}
+      const i = newTodos.findIndex(el => el.id === id);
+      newTodos[i].completed = !newTodos[i].completed;
+      return {todos: newTodos, filterFunction: newFilterFunction};
     case "DELETE_TODO":
-      newAllTodos = newAllTodos.filter(el => el.id !== id);
-      return {allTodos: newAllTodos};
+      newTodos = newTodos.filter(el => el.id !== id);
+      return {todos: newTodos, filterFunction: newFilterFunction};
     case "SHOW_ALL":
-      newDisplayedTodos = newAllTodos;
-      return {displayedTodos: newDisplayedTodos}
-    case 'SHOW_COMPLETED':
-      newDisplayedTodos = newAllTodos.filter(el => el.completed === "completed");
-      return {displayedTodos: newDisplayedTodos}
-    case 'SHOW_UNCOMPLETED':
-      newDisplayedTodos = newAllTodos.filter(el => el.completed === "uncompleted");
-      return {displayedTodos: newDisplayedTodos}
-    case 'FILTER_BY_TEXT':
-      newDisplayedTodos = newAllTodos.filter(el => el.indexOf(filterText) > -1);
-      return {displayedTodos: newDisplayedTodos}
+      newFilterFunction = (el) => el;
+      return {todos: newTodos, filterFunction: newFilterFunction}
+    case "SHOW_COMPLETE":
+      newFilterFunction = (el) => el.completed;
+      return {todos: newTodos, filterFunction: newFilterFunction}
+    case "SHOW_UNCOMPLETE":
+      newFilterFunction = (el) => !el.completed;
+      return {todos: newTodos, filterFunction: newFilterFunction}
     default:
       return state;
   }

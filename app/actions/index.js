@@ -22,26 +22,19 @@ export function deleteTodo(id) {
 }
 
 export function showAll() {
-  return {
-    type: 'SHOW_ALL'
-  }
+   return {
+       type: 'SHOW_ALL'
+   };
 }
 
-export function showCompleted() {
-  return {
-    type: 'SHOW_COMPLETED'
-  }
+export function showComplete() {
+   return {
+       type: 'SHOW_COMPLETE'
+   };
 }
 
-export function showUncompleted() {
-  return {
-    type: 'SHOW_UNCOMPLETED'
-  }
-}
-
-export function filterByText(filterText) {
-  return {
-    type: 'FILTER_BY_TEXT'
-    filterText
-  }
+export function showUncomplete() {
+   return {
+       type: 'SHOW_UNCOMPLETE'
+   };
 }
