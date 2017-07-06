@@ -1,23 +1,25 @@
 import React from 'react';
 import Todo from './Todo';
 
-class TodoList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {
-          this.props.todos.map((todo, index) => (
-            <Todo
-              key={todo.id}
-              task={todo.task}
-              completed={todo.completed}
-              toggleTodo={() => this.props.toggleTodo(index)}
-            />
-          ))
-        }
-      </ul>
-    )
+const TodoList = ({todos, filter, handleToggleTodo, handleRemove}) => {
+  if (filter) {
+    todos = todos.filter((todo) => !todo.completed)
   }
+  return (
+    <ul>
+      {
+        todos.map((todo, index) => {
+          return <Todo
+            key={todo.id}
+            task={todo.task}
+            completed={todo.completed}
+            handleOnClick={() => handleToggleTodo(todo.id)}
+            handleRemoveClick={() => handleRemove(todo.id)}
+          />
+        })
+      }
+    </ul>
+  )
 }
 
 export default TodoList;
