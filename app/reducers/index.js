@@ -1,24 +1,18 @@
-const initialState = [{task:"Bob", id: 0, completed: false}];
+const initialState = [];
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, { type, id, task, completed }) => {
+  switch (type) {
     case "ADD_TODO":
       const newState = [...state];
-      const newTodo = {
-        id: action.id,
-        task: action.task,
-        completed: action.completed
-      }
-      newState.push(newTodo);
+      newState.push({id, task, completed});
       return newState;
     case "TOGGLE_TODO":
-      const i = action.id;
-      const newCompleted = !state[i].completed;
-      return [
-        ...state.slice(0, i), //before the one we are updating
-        {...state[i], completed: newCompleted},
-        ...state.slice(i + 1) //after the one we are updating
-      ]
+      const newArr = [...state];
+      const i = newArr.findIndex(el => el.id === id);
+      newArr[i].completed = !newArr[i].completed;
+      return newArr;
+    case "DELETE_TODO":
+      return state.filter(el => el.id !== id);
     default:
       return state;
   }
