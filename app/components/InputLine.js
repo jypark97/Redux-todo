@@ -11,7 +11,8 @@ class InputLine extends React.Component {
     this.setState({ task: event.target.value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.addTodo(this.state.task);
     this.setState({ task: '' });
   }
@@ -19,13 +20,15 @@ class InputLine extends React.Component {
   render() {
     return (
       <div>
+        <form onSubmit={(event) => this.handleSubmit(event)}>
         <input
           type="text"
           placeholder="task"
           onChange={(event) => this.handleChange(event)}
           value={this.state.task}
         />
-        <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <button type="submit">Add Todo</button>
+      </form>
       </div>
     )
   }
