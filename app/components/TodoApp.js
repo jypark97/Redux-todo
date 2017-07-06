@@ -1,13 +1,16 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
+import Filter from './Filter';
 import {connect} from 'react-redux';
 import {addTodo} from '../actions/index';
 import {toggleTodo} from '../actions/index';
-
+import {removeTodo} from '../actions/index';
+import {filterCompleteTask} from '../actions/index';
+import {filterImcompleteTask} from '../actions/index';
 let id = 0;
 
-let TodoApp =({ todos, addTodoClick, toggleTodoClick }) => {
+let TodoApp =({ todos, addTodoClick, toggleTodoClick, removeTodoClick, filterCompleteTask, filterImcompleteTask}) => {
     return (
         <div>
         {/* leave this alone for now */}
@@ -17,6 +20,11 @@ let TodoApp =({ todos, addTodoClick, toggleTodoClick }) => {
         <TodoList
             todos={todos}
             handleToggleTodo={(id) => toggleTodoClick(id)}
+            handleRemoveTodo={(id) => removeTodoClick(id)}
+        />
+        <Filter
+            handleFilterComplete={()=>filterCompleteTask()}
+            handleFilterImcomplete={()=>filterImcompleteTask()}
         />
         </div>
     );
@@ -24,7 +32,7 @@ let TodoApp =({ todos, addTodoClick, toggleTodoClick }) => {
 
 const mapStateToProps = (state)=> {
   return {
-    todos:state
+    todos:state.currentTasks
   }
 }
 
@@ -35,6 +43,15 @@ const mapDispatchToProps = dispatch => {
     },
     toggleTodoClick:(id) => {
       dispatch(toggleTodo(id))
+    },
+    removeTodoClick:(id) => {
+      dispatch(removeTodo(id))
+    },
+    filterCompleteTask:()=> {
+      dispatch(filterCompleteTask())
+    },
+    filterImcompleteTask:()=> {
+      dispatch(filterImcompleteTask())
     }
   }
 }

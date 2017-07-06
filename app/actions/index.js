@@ -21,3 +21,22 @@ export function toggleTodo(id) {
     id
   };
 }
+
+export function removeTodo(id) {
+  return {
+    type: 'REMOVE_TODO',
+    id
+  };
+}
+
+export function filterImcompleteTask() {
+  return {
+    type:'FILTER_TODO_IMCOMPLETED'
+  }
+}
+
+export function filterCompleteTask() {
+  return {
+    type: 'FILTER_TODO_COMPLETED'
+  }
+}
