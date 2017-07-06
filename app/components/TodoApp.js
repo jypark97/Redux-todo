@@ -2,12 +2,14 @@ import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
 import { connect } from 'react-redux';
-import { addTodo, toggleTodo, deleteTodo } from '../actions/index';
+import { addTodo, toggleTodo, deleteTodo, showAll, showCompleted, showUncompleted, filterByText } from '../actions/index';
 
 let id = 0;
 
 
-let TodoApp = ({ todos, addTodoClick, toggleTodoClick, deleteTodoClick }) => {
+const destructedProps = { todos, addTodoClick, toggleTodoClick, deleteTodoClick, showAllClick, showCompletedClick, showUncompletedClick, filterByTextClick}
+
+let TodoApp = (destructedProps) => {
   return (
     <div>
       <InputLine
@@ -18,13 +20,22 @@ let TodoApp = ({ todos, addTodoClick, toggleTodoClick, deleteTodoClick }) => {
         handleToggleTodo={(id) => toggleTodoClick(id)}
         handleDeleteTodo={(id) => deleteTodoClick(id)}
       />
+      <FilterButtons
+        showAll={() => showAllClick()}
+        showCompleted={() => showCompletedClick()}
+        showUncompleted={() => showUncompletedClick()}
+      />
+      <FilterBox
+        submit={(filterText) => filterByTextClick(filterText)}
+      />
     </div>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    todos: state
+    todos,
+    displayedTodos
   }
 }
 
@@ -32,10 +43,13 @@ const mapDispatchToProps = dispatch => {
   return {
     addTodoClick: (id, task) => dispatch(addTodo(id, task)),
     toggleTodoClick: (id) => dispatch(toggleTodo(id)),
-    deleteTodoClick: (id) => dispatch(deleteTodo(id))
+    deleteTodoClick: (id) => dispatch(deleteTodo(id)),
+    showAllClick: () => dispatch(showAll()),
+    showCompletedClick: () => dispatch(showCompleted()),
+    showUncompletedClick: () => dispatch(showUncompleted()),
+    filterByTextClick: (filterText) => dispatch(filterByText(filterText))
   }
 }
-
 
 
 TodoApp = connect(
