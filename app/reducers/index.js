@@ -1,59 +1,40 @@
 //reducers
-const reducer = (state = [], action) => {
+const reducer = (state = {todos: [], currentFilter: "All"}, action) => {
    switch (action.type) {
        case 'ADD_TODO':
-           // copy new state so no mutations to old state
-           const newState = [ ...state ];
-           // create the todo from the action object
            const newTodo = {
                id: action.id,
                task: action.task,
                completed: action.completed,
                display: true
            };
-           newState.push(newTodo);
+           const newState = Object.assign({},state, {todos: state.todos.concat([newTodo])});//[ ...state ];
            return newState;
        case 'TOGGLE_TODO':
-        let toggleState = [ ...state ];
-        toggleState.forEach(function(todo) {
-          // console.log("todo",todo);
+        let toggleTodos = [...state.todos];
+        toggleTodos.forEach(function(todo) {
           if(todo.id == action.id){
             todo.completed = !todo.completed
           }
         })
+        let toggleState = Object.assign({},state, {todos: toggleTodos});
         return toggleState;
       case 'REMOVE_TODO':
-        const removedState = [ ...state ];
+        let removeTodos = [...state.todos];
         let i = -1;
-        removedState.forEach(function(todo, index) {
-          // console.log("todo",todo);
+        removeTodos.forEach(function(todo, index) {
           if(todo.id == action.id){
             i=index;
           }
         })
         if(i!==-1){
-          removedState.splice(i,1);
+          removeTodos.splice(i,1);
         }
+        const removedState = Object.assign({}, state, {todos: removeTodos});
         return removedState;
       case 'FILTER_TODO':
-        let filteredState = [ ...state ];
-        filteredState.forEach(function(todo) {
-          if(action.filterby == "Complete"){
-            if(todo.completed){
-              todo.display = true;
-            }else{
-              todo.display= false;
-            }
-          }else if(action.filterby == "Incomplete"){
-            if(todo.completed){
-              todo.display = false;
-            }else{
-              todo.display= true;
-            }
-          }else{
-            todo.display = true;
-          }
-      })
+        let filteredState = Object.assign({},state, {todos: state.todos});
+        filteredState.currentFilter = action.filterby;
       return filteredState;
 
        default:

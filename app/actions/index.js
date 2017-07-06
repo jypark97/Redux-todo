@@ -6,8 +6,7 @@ const addTodo = (id, task) => {
     type: 'ADD_TODO',
     id: id,
     task: task,
-    completed: false,
-    display: true
+    completed: false
   }
 }
 

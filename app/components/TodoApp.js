@@ -21,23 +21,22 @@ let TodoApp = ({todos,currentFilter, addTodoClick, toggleTodoClick, removeTodoCl
         <ButtonGroup style={{alignSelf: "flex-end", paddingRight: "5px"}}>
 
           <DropdownButton title={"Filter by: "+currentFilter} id="bg-nested-dropdown">
-            <MenuItem eventKey="1" onClick={() =>
-              {
-                console.log(currentFilter);
-
-                return filterTodoClick("Complete");
-              }
-            }>
-            Complete</MenuItem>
+            <MenuItem eventKey="1" onClick={() =>  filterTodoClick("Complete")}>Complete</MenuItem>
             <MenuItem eventKey="2" onClick={() => filterTodoClick("Incomplete")}>Incomplete</MenuItem>
             <MenuItem eventKey="3" onClick={() => filterTodoClick("All")}>All</MenuItem>
           </DropdownButton>
         </ButtonGroup>
 
-        
-        <TodoList
-          todos={todos}
 
+        <TodoList
+          todos={todos.filter( (todo) => {
+            if(currentFilter =="Complete"){
+              return todo.completed;
+            }else if(currentFilter == "Incomplete"){
+              return !todo.completed;
+            }
+            return true;
+          })}
 
           toggleTodo={(id) => toggleTodoClick(id)}
           removeTodo={(id) => removeTodoClick(id)}
@@ -49,8 +48,8 @@ let TodoApp = ({todos,currentFilter, addTodoClick, toggleTodoClick, removeTodoCl
 
 const mapStateToProps = (state) => {
   return {
-    todos: state,
-    currentFilter: "All"
+    todos: state.todos,
+    currentFilter: state.currentFilter
   }
 }
 
