@@ -1,15 +1,20 @@
 import React from 'react';
 
-class Todo extends React.Component {
-  render() {
-    return (
-      <li>
-        <span onClick={() => this.props.toggleTodo()}>
-          {this.props.completed ? <strike> {this.props.task}</strike> : this.props.task}
-        </span>
-      </li>
-    );
-  }
-}
+const Todo = ({task,completed,handleOnClick,handleRemoveClick})=>(
+  // <li className="collection-item">
+    <a className="collection-item">
+      <h4>
+        <div onClick={handleRemoveClick}  className="btn-floating btn-small waves-effect waves-light red">
+          <i className="small material-icons">delete</i>
+        </div>
+        &nbsp;
+        <strong onClick={handleOnClick}>
+          {completed ? <strike> {task}</strike> : task}
+        </strong>
+      </h4>
+    </a>
+  // </li>
+)
+
 
 export default Todo;

@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 
 class InputLine extends React.Component {
   constructor(props) {
@@ -18,14 +19,13 @@ class InputLine extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="row">
         <input
-          type="text"
-          placeholder="task"
+          placeholder="New Task"
           onChange={(event) => this.handleChange(event)}
           value={this.state.task}
         />
-        <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <button className="waves-effect waves-light btn red" onClick={() => this.handleSubmit()}>Add Todo</button>
       </div>
     )
   }
