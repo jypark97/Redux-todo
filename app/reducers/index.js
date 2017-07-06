@@ -8,8 +8,9 @@ const reducer = (state = {todos: [], currentFilter: "All"}, action) => {
                completed: action.completed,
                display: true
            };
-           const newState = Object.assign({},state, {todos: state.todos.concat([newTodo])});//[ ...state ];
-           return newState;
+           return Object.assign({},state, {todos: state.todos.concat([newTodo])});//[ ...state ];
+
+
        case 'TOGGLE_TODO':
         let toggleTodos = [...state.todos];
         toggleTodos.forEach(function(todo) {
@@ -17,8 +18,9 @@ const reducer = (state = {todos: [], currentFilter: "All"}, action) => {
             todo.completed = !todo.completed
           }
         })
-        let toggleState = Object.assign({},state, {todos: toggleTodos});
-        return toggleState;
+        return Object.assign({},state, {todos: toggleTodos});
+
+
       case 'REMOVE_TODO':
         let removeTodos = [...state.todos];
         let i = -1;
@@ -32,10 +34,11 @@ const reducer = (state = {todos: [], currentFilter: "All"}, action) => {
         }
         const removedState = Object.assign({}, state, {todos: removeTodos});
         return removedState;
+
       case 'FILTER_TODO':
-        let filteredState = Object.assign({},state, {todos: state.todos});
-        filteredState.currentFilter = action.filterby;
-      return filteredState;
+        return Object.assign({},state, {todos: state.todos, currentFilter: action.filterby});
+        // filteredState.currentFilter = action.filterby;
+      // return filteredState;
 
        default:
            return state;

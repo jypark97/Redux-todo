@@ -14,9 +14,7 @@ let TodoApp = ({todos,currentFilter, addTodoClick, toggleTodoClick, removeTodoCl
     return (
       <div className="tododiv">
         <div className="lines"></div>
-        <InputLine
-          addTodo={(task) => addTodoClick(id++, task)}
-        />
+        <InputLine addTodo={(task) => addTodoClick(id++, task)} />
 
         <ButtonGroup style={{alignSelf: "flex-end", paddingRight: "5px"}}>
 
