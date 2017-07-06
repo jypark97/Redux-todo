@@ -1,23 +1,26 @@
 import React from 'react';
 import Todo from './Todo';
 
-class TodoList extends React.Component {
-  render() {
+const TodoList=({todos, toggleTodo, deleteTodo})=>{ //because we converted class to function the props are listed as parameters
+
     return (
       <ul>
         {
-          this.props.todos.map((todo, index) => (
+          todos.map((todo) => (
             <Todo
               key={todo.id}
               task={todo.task}
               completed={todo.completed}
-              toggleTodo={() => this.props.toggleTodo(index)}
+              handleOnClick={() => toggleTodo(todo.id)}
+              deleteTodoClick={()=>deleteTodo(todo.id)}
+              //these are properties because in <Todo and so deleteTodoClick actually go todo so you have to use its name as the same in each
+
             />
           ))
         }
       </ul>
-    )
-  }
+  )
 }
+
 
 export default TodoList;
