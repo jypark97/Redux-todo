@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Todo = ({task, completed, handleOnClick}) => {
+const Todo = ({task, completed, toggleTodo, removeTodo}) => {
     return (
       <li>
-        <span onClick={handleOnClick}>
-          {completed ? <strike> {task}</strike> : task}
+        <span onClick={toggleTodo} onDoubleClick={removeTodo}>
+          {completed ? <strike>{task}</strike> : task}
         </span>
       </li>
     );
