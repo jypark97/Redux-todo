@@ -11,5 +11,4 @@ const Todo = ({task, completed, handleOnClick, handleDeleteButtonClick}) => {
   );
 }
 
-
 export default Todo;

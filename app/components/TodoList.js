@@ -1,14 +1,11 @@
 import React from 'react';
 import Todo from './Todo';
 
-
-
-
-const TodoList = ({ todos, handleToggleTodo, handleDeleteTodo }) => {
+const TodoList = ({ todos, filterFunction, handleToggleTodo, handleDeleteTodo }) => {
   return (
     <ul>
       {
-        todos.map((todo) => (
+        todos.filter(filterFunction).map((todo) => (
           <Todo
             key={todo.id}
             task={todo.task}
@@ -21,6 +18,5 @@ const TodoList = ({ todos, handleToggleTodo, handleDeleteTodo }) => {
     </ul>
   )
 }
-
 
 export default TodoList;

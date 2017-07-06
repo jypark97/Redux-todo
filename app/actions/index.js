@@ -20,3 +20,21 @@ export function deleteTodo(id) {
        id
    };
 }
+
+export function showAll() {
+   return {
+       type: 'SHOW_ALL'
+   };
+}
+
+export function showComplete() {
+   return {
+       type: 'SHOW_COMPLETE'
+   };
+}
+
+export function showUncomplete() {
+   return {
+       type: 'SHOW_UNCOMPLETE'
+   };
+}
