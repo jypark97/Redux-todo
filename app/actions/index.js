@@ -3,7 +3,8 @@ export function addTodo(id,task) {
   type: 'ADD_TODO',
   id,
   task,
-  completed: false
+  completed: false,
+  show: true
  };
 }
 
@@ -18,5 +19,12 @@ export function removeTodo(id) {
   return {
     type: 'REMOVE',
     id
+  }
+}
+
+export function show(filter) {
+  return {
+    type: 'SHOW',
+    filter
   }
 }

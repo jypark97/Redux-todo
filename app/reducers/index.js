@@ -8,7 +8,8 @@ const reducer = (state = [], action) => {
       const newTodo = {
         id: action.id,
         task: action.task,
-        completed: action.completed
+        completed: action.completed,
+        show: action.show
       };
       // okay to mutate our own copy
       newState.push(newTodo);
@@ -19,9 +20,9 @@ const reducer = (state = [], action) => {
         if (todo.id === action.id) {
           todo.completed = !todo.completed;
         }
-      })
+      });
       return newState;
-      case 'REMOVE':
+    case 'REMOVE':
       newState = [...state];
       let index = 0;
       newState.forEach((todo, foundIndex) => {
@@ -31,6 +32,36 @@ const reducer = (state = [], action) => {
       });
       newState.splice(index, 1);
       return newState;
+    case 'SHOW':
+    newState = [...state];
+      switch (action.filter) {
+        case 'all':
+          return newState.map(item => {
+            item.show = true;
+            return item;
+          });
+        case 'completed':
+          return newState.map(item => {
+            if (item.completed) {
+              item.show = true;
+            } else {
+              item.show = false;
+            }
+            return item;
+          });
+        case 'not completed':
+        newState = newState.map(item => {
+          console.log("item show", item.show);
+          if (item.completed) {
+            item.show = false;
+          } else {
+            item.show = true;
+          }
+          return item;
+        });
+        console.log("newState!", newState);
+        return newState;
+      }
     default:
       return state;
   }

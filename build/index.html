@@ -1,9 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Horizons Todo</title></head>
+  <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  <title>Horizons Todo</title>
+</head>
+
 <body>
   <div id='root'></div>
-  <script type="text/javascript" src="/app.bundle.js"></script></body>
+  <script type="text/javascript" src="/app.bundle.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#all").hide();
+    $("#completed").show();
+    $("#not_completed").show();
+
+    $("#all").on('click', function() {
+      $("#all").hide();
+      $("#completed").show();
+      $("#not_completed").show();
+    });
+
+    $("#completed").on('click', function() {
+      $("#completed").hide();
+      $("#all").show();
+      $("#not_completed").show();
+    });
+
+    $("#not_completed").on('click', function() {
+      $("#not_completed").hide();
+      $("#completed").show();
+      $("#all").show();
+    });
+  });
+</script>

@@ -4,8 +4,9 @@ import Todo from './Todo';
 const TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
     return (
       <ul>
-        {
-          todos.map((todo) => (
+        {todos.map((todo) => {
+          if (todo.show) {
+            return (
             <Todo
               key={todo.id}
               task={todo.task}
@@ -13,8 +14,9 @@ const TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
               handleOnClick={() => handleToggleTodo(todo.id)}
               xClick = {() => handleRemoveTodo(todo.id)}
             />
-          ))
-        }
+          )
+          }
+        })}
       </ul>
     )
 }

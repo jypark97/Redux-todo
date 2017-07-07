@@ -21,11 +21,11 @@ class InputLine extends React.Component {
       <div>
         <input
           type="text"
-          placeholder="task"
+          placeholder="New task..."
           onChange={(event) => this.handleChange(event)}
           value={this.state.task}
         />
-        <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <button className="btn btn-info" onClick={() => this.handleSubmit()}>Add Todo</button>
       </div>
     )
   }
