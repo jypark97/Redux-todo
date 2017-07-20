@@ -1,55 +1,55 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-
+import {connect} from 'react-redux';
+import {addTodo, toggleTodo, removeTodo, checkBox} from '../actions/index.js';
 
 let id = 0;
 
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { todos: [] };
-  }
+const mapStateToProps = state => {
+  return {
+    todos: state['array'],
+    isChecked: state['checked'],
+    completedArray: state['completedArray']
+  };
+}
 
-  toggleTodo(index) {
-    const newTodo = Object.assign(
-      {},
-      this.state.todos[index],
-      { completed: !this.state.todos[index].completed }
-    );
-    const newTodos = [ 
-      ...this.state.todos.slice(0, index),
-      newTodo,
-      ...this.state.todos.slice(index + 1)  
-    ];
-    this.setState({ todos: newTodos });
-  }
-
-  addTodo(task) {
-    const newTodo = { 
-      id: id++,
-      task: task,
-      completed: false 
-    };
-    const newTodos = [ ...this.state.todos ]
-    newTodos.push(newTodo);
-    this.setState({ todos: newTodos });
-  }
-
-  render() {
-    return (
-      <div>
-        <InputLine
-          addTodo={(task) => this.addTodo(task)}
-        />
-        <TodoList
-          todos={this.state.todos}
-          toggleTodo={(index) => this.toggleTodo(index)}
-          removeTodo={(index) => this.removeTodo(index)}
-        />
-      </div>
-    );
+const mapDispatchToProps = dispatch => {
+  return {
+    addTodoClick: (id, task) => {
+      dispatch(addTodo(id, task));
+    },
+    toggleTodoClick: (id) => {
+      dispatch(toggleTodo(id));
+    },
+    removeTodoClick: (id) => {
+      dispatch(removeTodo(id));
+    },
+    checkBox: () => {
+      dispatch(checkBox());
+    }
   }
 }
+
+let TodoApp = ({completedArray, todos, addTodoClick, toggleTodoClick, removeTodoClick, checkBox, isChecked}) => {
+  return (
+    <div>
+      <label><input type="checkbox" name="checkbox" value={isChecked} onClick={checkBox}/>Completed</label>
+      <InputLine
+        addTodo={(text) => addTodoClick(id++, text)}
+      />
+      <TodoList
+        todos={isChecked ? completedArray : todos}
+        handleToggleTodo={(id) => toggleTodoClick(id)}
+        handleRemoveTodo={(id) => removeTodoClick(id)}
+      />
+    </div>
+  );
+}
+
+TodoApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp);
 
 export default TodoApp;
