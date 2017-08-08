@@ -13,21 +13,21 @@ let TodoApp = ({todos,currentFilter, addTodoClick, toggleTodoClick, removeTodoCl
 
     return (
       <div className="tododiv">
-        <div className="lines"></div>
-        <InputLine addTodo={(task) => addTodoClick(id++, task)} />
+          <div className="lines"></div>
+          <InputLine addTodo={(task) => addTodoClick(id++, task)} />
 
-        <ButtonGroup style={{alignSelf: "flex-end", paddingRight: "5px"}}>
+          <ButtonGroup style={{alignSelf: "flex-end", paddingRight: "5px"}}>
 
-          <DropdownButton title={"Filter by: "+currentFilter} id="bg-nested-dropdown">
-            <MenuItem eventKey="1" onClick={() =>  filterTodoClick("Complete")}>Complete</MenuItem>
-            <MenuItem eventKey="2" onClick={() => filterTodoClick("Incomplete")}>Incomplete</MenuItem>
-            <MenuItem eventKey="3" onClick={() => filterTodoClick("All")}>All</MenuItem>
-          </DropdownButton>
-        </ButtonGroup>
+              <DropdownButton title={"Filter by: "+currentFilter} id="bg-nested-dropdown">
+                  <MenuItem eventKey="1" onClick={() =>  filterTodoClick("Complete")}>Complete</MenuItem>
+                  <MenuItem eventKey="2" onClick={() => filterTodoClick("Incomplete")}>Incomplete</MenuItem>
+                  <MenuItem eventKey="3" onClick={() => filterTodoClick("All")}>All</MenuItem>
+              </DropdownButton>
+          </ButtonGroup>
 
 
-        <TodoList
-          todos={todos.filter( (todo) => {
+          <TodoList
+              todos={todos.filter( (todo) => {
             if(currentFilter =="Complete"){
               return todo.completed;
             }else if(currentFilter == "Incomplete"){
