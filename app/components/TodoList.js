@@ -1,23 +1,37 @@
 import React from 'react';
 import Todo from './Todo';
+import { connect } from 'react-redux';
+import { toggleTodo, removeTodo } from '../actions/index';
 
-class TodoList extends React.Component {
-  render() {
-    return (
-      <ul>
+let TodoList = ({ todos, toggleTodo, removeTodo }) => {
+  return (
+    <div className="container">
+      <ul className="list-group">
         {
-          this.props.todos.map((todo, index) => (
+          todos.map((todo) => (
             <Todo
               key={todo.id}
               task={todo.task}
               completed={todo.completed}
-              toggleTodo={() => this.props.toggleTodo(index)}
+              // Find todo to toggle by
+              toggleTodo={() => toggleTodo(todo.id)}
+              removeTodo={() => removeTodo(todo.id)}
             />
           ))
         }
       </ul>
-    )
-  }
+    </div>
+  );
 }
+
+const mapStateToProps = (state) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleTodo: (id) => (dispatch(toggleTodo(id))),
+  removeTodo: (id) => (dispatch(removeTodo(id))),
+});
+
+TodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
 export default TodoList;

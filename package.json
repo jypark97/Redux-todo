@@ -20,9 +20,14 @@
     "node-loader": "^0.6.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "webpack": "^2.6.1"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.8.0",
+    "eslint-plugin-react": "^7.4.0",
     "webpack-dev-server": "^2.4.5"
   }
 }
