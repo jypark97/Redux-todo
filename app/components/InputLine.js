@@ -26,6 +26,11 @@ class InputLine extends React.Component {
           value={this.state.task}
         />
         <button onClick={() => this.handleSubmit()}>Add Todo</button>
+
+        <select>
+        <option value="all">Display all</option>
+        <option value="completed">Completed</option>
+      </select>
       </div>
     )
   }
