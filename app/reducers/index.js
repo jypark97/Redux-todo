@@ -13,6 +13,12 @@ const reducer = (state = [], action) => {
       const todos = state.slice();
       todos[action.id].completed ^= true;
       return todos;
+
+    case 'REMOVE':
+      const list = state.slice();
+      list.splice(action.id, 1);
+      return list;
+
     default:
       return state;
   }

@@ -3,7 +3,6 @@ import React from 'react';
 class InputLine extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { task: '' };
   }
 
@@ -11,22 +10,25 @@ class InputLine extends React.Component {
     this.setState({ task: event.target.value });
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     this.props.addTodo(this.state.task);
     this.setState({ task: '' });
   }
 
   render() {
     return (
-      <div>
+      <form>
         <input
           type="text"
-          placeholder="task"
+          placeholder="Task..."
           onChange={(event) => this.handleChange(event)}
           value={this.state.task}
         />
-        <button onClick={() => this.handleSubmit()}>Add Todo</button>
-      </div>
+        <button
+          onClick={(e) => this.handleSubmit(e)}>Add Todo
+        </button>
+      </form>
     )
   }
 }

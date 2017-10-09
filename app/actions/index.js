@@ -8,9 +8,15 @@ const addTodo = (id, task) => ({
 const toggleTodo = (id) => ({
   type: 'TOGGLE',
   id
+});
+
+const removeTodo = (id) => ({
+  type: 'REMOVE',
+  id
 })
 
 module.exports = {
   addTodo,
-  toggleTodo
+  toggleTodo,
+  removeTodo
 }

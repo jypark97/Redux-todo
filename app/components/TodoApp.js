@@ -2,19 +2,12 @@ import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
 import {connect} from 'react-redux';
-import {addTodo, toggleTodo} from '../actions/index';
+import {addTodo} from '../actions/index';
 
-// let id = 0;
-
-let TodoApp = ({todos, addTodoClick, toggleTodoClick}) => (
+let TodoApp = ({todos, addTodoClick}) => (
   <div>
-    <InputLine
-      addTodo={(task) => addTodoClick(todos.length, task)}
-    />
-    <TodoList
-      todos={todos}
-      toggleTodo={(index) => toggleTodoClick(index)}
-    />
+    <InputLine addTodo={(task) => addTodoClick(todos.length, task)} />
+    <TodoList todos={todos} />
   </div>
 );
 
@@ -23,8 +16,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodoClick: (id, task) => dispatch(addTodo(id, task)),
-  toggleTodoClick: (id) => dispatch(toggleTodo(id))
+  addTodoClick: (id, task) => dispatch(addTodo(id, task))
 });
 
 TodoApp = connect(mapStateToProps, mapDispatchToProps)(TodoApp);
