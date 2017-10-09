@@ -21,4 +21,22 @@ function removeTodo(id) {
   };
 }
 
-export {addTodo, toggleTodo, removeTodo};
+function filterNone() {
+  return {
+    type: "FILTER_NONE",
+  };
+}
+
+function filterCompleteOnly() {
+  return {
+    type: "FILTER_COMPLETE",
+  };
+}
+
+function filterIncompleteOnly() {
+  return {
+    type: "FILTER_INCOMPLETE",
+  };
+}
+
+export {addTodo, toggleTodo, removeTodo, filterNone, filterCompleteOnly, filterIncompleteOnly};
