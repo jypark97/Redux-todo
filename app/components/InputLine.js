@@ -15,6 +15,9 @@ class InputLine extends React.Component {
     this.props.addTodo(this.state.task);
     this.setState({ task: '' });
   }
+  handleSelectChange(event){
+    this.props.displaySettings(event.target.value);
+  }
 
   render() {
     return (
@@ -27,10 +30,11 @@ class InputLine extends React.Component {
         />
         <button onClick={() => this.handleSubmit()}>Add Todo</button>
 
-        <select>
-        <option value="all">Display all</option>
-        <option value="completed">Completed</option>
-      </select>
+        <select onChange = {(event) => this.handleSelectChange(event)}>
+          <option value="all">Display all</option>
+          <option value="completed">Completed</option>
+          <option value="not-completed"> Show non completed </option>
+        </select>
       </div>
     )
   }

@@ -20,8 +20,8 @@ import Todo from './Todo';
 //   }
 // }
 
-const TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
-  console.log("todos", todos);
+const TodoList = ({todos, handleToggleTodo, handleRemoveTodo, displaySettings}) => {
+  console.log(displaySettings)
   return(
     <ul>
       {
@@ -33,6 +33,7 @@ const TodoList = ({todos, handleToggleTodo, handleRemoveTodo}) => {
             completed = {todo.completed}
             handleOnClick = {() => handleToggleTodo(todo.id)}
             removeTodoClick = {() => handleRemoveTodo(todo.id)}
+            display = {displaySettings}
           />)
         })
       }

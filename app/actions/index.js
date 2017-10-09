@@ -23,3 +23,10 @@ export const removeTodo = (id) => {
     id
   }
 }
+
+export const displaySettings = (display) => {
+  return {
+    type: 'DISPLAY_CHANGE',
+    display
+  }
+}
