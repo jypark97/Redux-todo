@@ -22,10 +22,14 @@ const reducer = (state = [], action) => {
           }
         })
      case 'REMOVE_TODO':
-        const copy = state.slice()
-        const index = copy.indexOf(action.id)
-        copy.splice(index, 1)
-        return copy
+        const nuState = [...state]
+        const index = nuState.findIndex(function(todo){
+          if(action.id === todo.id){
+            return true;
+          }
+        })
+        const toReturn = [...nuState.slice(0, index), ...nuState.slice(index+1)]
+        return toReturn
      default:
         return state;
    }
