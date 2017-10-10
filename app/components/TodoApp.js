@@ -1,19 +1,17 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-// import reducer from '../reducers/index';
-// import {createStore} from 'redux';
 import { connect } from 'react-redux';
 
 import actions from '../actions/index';
 
 let id = 0;
 
-let TodoApp = ({todos,addTodo,toggleTodo,deleteTodo}) => {
+let TodoApp = ({ todos, addTodo, toggleTodo, deleteTodo }) => {
   return (
-    <div onKeyPress={deleteTodo}>
+    <div>
       <InputLine
-        addTodo={(task) => addTodo(id++,task)}
+        addTodo={(task) => addTodo(id++, task)}
       />
       <TodoList
         todos={todos}
@@ -21,10 +19,6 @@ let TodoApp = ({todos,addTodo,toggleTodo,deleteTodo}) => {
       />
     </div>
   );
-}
-
-var test = (event) => {
-  console.log(event)
 }
 
 const mapStateToProps = state => {
