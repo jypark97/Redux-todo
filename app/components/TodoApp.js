@@ -5,7 +5,9 @@ import {connect} from 'react-redux';
 import {addTodo} from '../actions';
 import {toggleTodo} from '../actions';
 import {removeTodo} from '../actions';
-import {displaySettings} from '../actions'
+import {displaySettings} from '../actions';
+import {Link, Route, BrowserRouter} from 'react-router-dom';
+
 let id = 0;
 
 class TodoApp extends React.Component {
@@ -21,12 +23,40 @@ class TodoApp extends React.Component {
           displaySettings={(display) => this.props.displaySettings(display)}
         />
 
-        <TodoList
-        todos={this.props.todos}
-        handleToggleTodo = {(id) => this.props.toggleTodo(id)}
-        handleRemoveTodo = {(id) => this.props.removeTodo(id)}
-        displaySettings = {this.props.display}
-        />
+        <BrowserRouter>
+        <div>
+        Show:
+        <Link to="/all" onClick={() => this.props.displaySettings('all')} style={this.props.display === 'all' ? {color: 'black', marginRight: '5px', textDecoration: 'none'} : {color: 'blue', marginRight: '5px',}}> All, </Link>
+        <Link onClick={() => this.props.displaySettings('not-completed')} to="/not-completed" style={this.props.display === 'not-completed' ? {color: 'black', marginRight: '5px', textDecoration: 'none'} : {color: 'blue', marginRight: '5px',}}> Active, </Link>
+        <Link to="/completed" onClick={() => this.props.displaySettings('completed')} style={this.props.display === 'completed' ? {color: 'black', marginRight: '5px', textDecoration: 'none'} : {color: 'blue', marginRight: '5px',}}> Completed </Link>
+        <Route exact path="/" render = {() =>         <TodoList
+                todos={this.props.todos}
+                handleToggleTodo = {(id) => this.props.toggleTodo(id)}
+                handleRemoveTodo = {(id) => this.props.removeTodo(id)}
+                displaySettings = 'all'
+                />} />
+          <Route exact path="/all" render = {() =>         <TodoList
+                  todos={this.props.todos}
+                  handleToggleTodo = {(id) => this.props.toggleTodo(id)}
+                  handleRemoveTodo = {(id) => this.props.removeTodo(id)}
+                  displaySettings = 'all'
+                  />} />
+          <Route exact path="/not-completed" render = {() =>         <TodoList
+                  todos={this.props.todos}
+                  handleToggleTodo = {(id) => this.props.toggleTodo(id)}
+                  handleRemoveTodo = {(id) => this.props.removeTodo(id)}
+                  displaySettings = 'not-completed'
+                  />} />
+          <Route exact path="/completed" render = {() =>         <TodoList
+                  todos={this.props.todos}
+                  handleToggleTodo = {(id) => this.props.toggleTodo(id)}
+                  handleRemoveTodo = {(id) => this.props.removeTodo(id)}
+                  displaySettings = 'completed'
+                  />} />
+                  </div>
+        </BrowserRouter>
+
+
       </div>
     );
   }
