@@ -3,7 +3,6 @@ import React from 'react';
 class InputLine extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { task: '' };
   }
 
@@ -12,6 +11,7 @@ class InputLine extends React.Component {
   }
 
   handleSubmit() {
+    console.log(this.state.task);
     this.props.addTodo(this.state.task);
     this.setState({ task: '' });
   }
