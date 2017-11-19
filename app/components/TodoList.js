@@ -2,16 +2,17 @@ import React from 'react';
 import Todo from './Todo';
 
 
-const TodoList = ({ todos, handleToggleTodo }){
+const TodoList = ({ todos, toggleTodo, deleteTodo })=>{
   return (
     <ul>
       {
         todos.map((todo)=>(
           <Todo
-            key = {todo.id}
+            key={todo.id}
             task={todo.task}
             completed={todo.completed}
-            handleOnClick={()=>handleToggleTodo(todo.id)}
+            handleOnClick={()=>toggleTodo(todo.id)}
+            handleDelete={()=>deleteTodo(todo.id)}
           />
         ))
       }

@@ -1,9 +1,12 @@
 import React from 'react';
 
 
-const Todo = ({task, completed, handleOnClick})=>{
+const Todo = ({task, completed, handleOnClick, handleDelete})=>{
     return (
       <li>
+        <button onClick={handleDelete}>
+          X
+        </button>
         <span onClick={handleOnClick}>
           {completed ? <strike> {task} </strike> : task}
         </span>
