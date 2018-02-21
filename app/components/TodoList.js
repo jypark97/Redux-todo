@@ -1,23 +1,23 @@
 import React from 'react';
 import Todo from './Todo';
 
-class TodoList extends React.Component {
-  render() {
+const TodoList = ({todos, handleToggleTodo, handleDeleteTodo}) => {
     return (
       <ul>
         {
-          this.props.todos.map((todo, index) => (
+          todos.filter((todo) => todo.visible).map((todo) =>
             <Todo
               key={todo.id}
               task={todo.task}
               completed={todo.completed}
-              toggleTodo={() => this.props.toggleTodo(index)}
+              // they're saying toggleTodo= should be handleOnClick=
+              toggleTodo={() => handleToggleTodo(todo.id)}
+              deleteTodo={() => handleDeleteTodo(todo.id)}
             />
-          ))
+          )
         }
       </ul>
     )
-  }
-}
+};
 
 export default TodoList;
