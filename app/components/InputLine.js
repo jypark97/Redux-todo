@@ -11,21 +11,27 @@ class InputLine extends React.Component {
     this.setState({ task: event.target.value });
   }
 
-  handleSubmit() {
-    this.props.addTodo(this.state.task);
-    this.setState({ task: '' });
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.task.trim()) {
+      this.props.addTodo(this.state.task);
+      this.setState({ task: '' });
+    }
   }
 
   render() {
     return (
       <div>
-        <input
-          type="text"
-          placeholder="task"
-          onChange={(event) => this.handleChange(event)}
-          value={this.state.task}
-        />
-        <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          <input
+            type="text"
+            placeholder="task"
+            onChange={(event) => this.handleChange(event)}
+            value={this.state.task}
+          />
+
+          <input type="submit" value="Add Todo" />
+        </form>
       </div>
     )
   }
