@@ -3,12 +3,12 @@ import InputLine from './InputLine';
 import TodoList from './TodoList';
 
 import { connect } from 'react-redux';
-import { addTodo, toggleTodo } from '../actions/index';
+import { addTodo, handleToggleTodo, handleDelete } from '../actions/index';
 
 
 let id = 0;
 
-let TodoApp = ({ todos, addTodoClick, toggleTodoClick }) => {
+let TodoApp = ({ todos, addTodoClick, toggleTodoClick, deleteTodoClick }) => {
   return (
     <div>
       <InputLine
@@ -17,6 +17,7 @@ let TodoApp = ({ todos, addTodoClick, toggleTodoClick }) => {
       <TodoList
         todos={todos}
         handleToggleTodo={(id) => toggleTodoClick(id)}
+        handleDeleteTodo={(id) => deleteTodoClick(id)}
       />
     </div>
   );
@@ -34,7 +35,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(addTodo(id, task))
     },
     toggleTodoClick: (id) => {
-      dispatch(toggleTodo(id))
+      dispatch(handleToggleTodo(id))
+    },
+    deleteTodoClick: (id) => {
+      dispatch(handleDelete(id))
     }
   }
 }

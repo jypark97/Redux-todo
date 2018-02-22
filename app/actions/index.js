@@ -7,9 +7,16 @@ export function addTodo(id, task) {
   };
 }
 
-export function toggleTodo(id) {
+export function handleToggleTodo(id) {
   return {
     type: 'TOGGLE_TODO',
+    id
+  }
+}
+
+export function handleDelete(id) {
+  return {
+    type: 'DELETE',
     id
   }
 }
