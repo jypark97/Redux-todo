@@ -1,12 +1,12 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-import { addTodo, toggleTodo } from '../actions/index';
+import { addTodo, toggleTodo, removeTodo } from '../actions/index';
 import { connect } from 'react-redux';
 
 let id = 0;
 
-let TodoApp = ({todos, addTodo, toggleTodo}) => {
+let TodoApp = ({todos, addTodo, toggleTodo, removeTodo}) => {
   return (
       <div>
         <InputLine
@@ -15,7 +15,7 @@ let TodoApp = ({todos, addTodo, toggleTodo}) => {
         <TodoList
           todos={todos}
           toggleTodo={(index) => toggleTodo(index)}
-          // removeTodo={(index) => this.removeTodo(index)}
+          removeTodo={(index) => removeTodo(index)}
         />
       </div>
   );
@@ -30,7 +30,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addTodo: (id, task) => {dispatch(addTodo(id, task))},
-    toggleTodo: (id) => {dispatch(toggleTodo(id))}
+    toggleTodo: (id) => {dispatch(toggleTodo(id))},
+    removeTodo: (id) => {dispatch(removeTodo(id))}
   }
 }
 
