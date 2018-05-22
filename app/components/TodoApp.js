@@ -1,55 +1,39 @@
 import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
-
+import { addTodo, toggleTodo } from '../actions/index';
+import { connect } from 'react-redux';
 
 let id = 0;
 
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { todos: [] };
-  }
-
-  toggleTodo(index) {
-    const newTodo = Object.assign(
-      {},
-      this.state.todos[index],
-      { completed: !this.state.todos[index].completed }
-    );
-    const newTodos = [ 
-      ...this.state.todos.slice(0, index),
-      newTodo,
-      ...this.state.todos.slice(index + 1)  
-    ];
-    this.setState({ todos: newTodos });
-  }
-
-  addTodo(task) {
-    const newTodo = { 
-      id: id++,
-      task: task,
-      completed: false 
-    };
-    const newTodos = [ ...this.state.todos ]
-    newTodos.push(newTodo);
-    this.setState({ todos: newTodos });
-  }
-
-  render() {
-    return (
+let TodoApp = ({todos, addTodo, toggleTodo}) => {
+  return (
       <div>
         <InputLine
-          addTodo={(task) => this.addTodo(task)}
+          addTodo={(task) => addTodo(id++, task)}
         />
         <TodoList
-          todos={this.state.todos}
-          toggleTodo={(index) => this.toggleTodo(index)}
-          removeTodo={(index) => this.removeTodo(index)}
+          todos={todos}
+          toggleTodo={(index) => toggleTodo(index)}
+          // removeTodo={(index) => this.removeTodo(index)}
         />
       </div>
-    );
+  );
+}
+
+const mapStateToProps = (state) => {
+  return {
+    todos: state
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodo: (id, task) => {dispatch(addTodo(id, task))},
+    toggleTodo: (id) => {dispatch(toggleTodo(id))}
+  }
+}
+
+TodoApp = connect(mapStateToProps, mapDispatchToProps)(TodoApp)
 
 export default TodoApp;
