@@ -3,7 +3,6 @@ import React from 'react';
 class InputLine extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { task: '' };
   }
 
@@ -26,9 +25,23 @@ class InputLine extends React.Component {
           value={this.state.task}
         />
         <button onClick={() => this.handleSubmit()}>Add Todo</button>
+        <button onClick={(id) => this.props.filterTodo(id)}>Filter Completed</button>
       </div>
     )
   }
 }
 
+// const InputLine = ({task, addTodo}) => {
+//   return(
+//     <div>
+//       <input
+//         type="text"
+//         placeholder="task"
+//         onChange={(event) => this.handleChange(event)}
+//         value={task}
+//       />
+//       <button onClick={addTodo(task)}>Add Todo</button>
+//     </div>
+//   )
+// }
 export default InputLine;
