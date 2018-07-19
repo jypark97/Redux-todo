@@ -2,54 +2,52 @@ import React from 'react';
 import InputLine from './InputLine';
 import TodoList from './TodoList';
 
+import { connect } from 'react-redux';
+import { addTodo } from '../actions/index';
+import { handleToggleTodo} from '../actions/index'
+import { handleRemove } from '../actions/index'
+import { filterTodos } from '../actions/index'
 
 let id = 0;
 
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { todos: [] };
-  }
-
-  toggleTodo(index) {
-    const newTodo = Object.assign(
-      {},
-      this.state.todos[index],
-      { completed: !this.state.todos[index].completed }
-    );
-    const newTodos = [ 
-      ...this.state.todos.slice(0, index),
-      newTodo,
-      ...this.state.todos.slice(index + 1)  
-    ];
-    this.setState({ todos: newTodos });
-  }
-
-  addTodo(task) {
-    const newTodo = { 
-      id: id++,
-      task: task,
-      completed: false 
-    };
-    const newTodos = [ ...this.state.todos ]
-    newTodos.push(newTodo);
-    this.setState({ todos: newTodos });
-  }
-
-  render() {
+let TodoApp = ({todos, addTodoClick, toggleTodoClick, removeClick, filterTodos}) => {
     return (
       <div>
+        <select onChange={(e) => filterTodos(e)}>
+          <option value="all">All</option>
+          <option value="true">Completed</option>
+          <option value="false">Uncompleted</option>
+        </select>
         <InputLine
-          addTodo={(task) => this.addTodo(task)}
+          addTodo={(task) => addTodoClick(id++, task)}
         />
         <TodoList
-          todos={this.state.todos}
-          toggleTodo={(index) => this.toggleTodo(index)}
-          removeTodo={(index) => this.removeTodo(index)}
+          todos={todos}
+          handleToggleTodo={(id) => toggleTodoClick(id)}
+          handleRemove={(id) => removeClick(id)}
         />
       </div>
     );
   }
+
+const mapStateToProps = state => {
+  return {
+    todos: state
+  }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addTodoClick: (id, task) => { dispatch(addTodo(id, task)) },
+    toggleTodoClick: (id) => { dispatch(handleToggleTodo(id)) },
+    removeClick: (id) => { dispatch(handleRemove(id)) },
+    filterTodos: (e) => { dispatch(filterTodos(e)) }
+  }
+}
+
+TodoApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)
 
 export default TodoApp;
